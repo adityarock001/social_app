@@ -18,7 +18,20 @@ const UserSchema = new mongoose.Schema({
     },
     bio : {
         type : String,
-    }
+        default : ""
+    },
+    profile_pic : {
+        type : String,
+        default : ""
+    },
+    followers : [{
+        type : mongoose.Schema.ObjectId, 
+        ref : "user"
+    }],
+    followings : [{
+        type : mongoose.Schema.ObjectId,
+        ref : "user"
+    }]
 
 })
 
