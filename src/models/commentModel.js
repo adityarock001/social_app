@@ -10,6 +10,16 @@ const CommentSchema = new mongoose.Schema({
         ref : "user",
         required : true,
     },
+    post_id : {
+        type : mongoose.Schema.ObjectId,
+        ref : "post",
+        required: true
+    },
+    parent_id : {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Comment', // This allows for nesting replies
+        default: null,
+    },
     likes : [{
         type : mongoose.Schema.ObjectId,
         ref : "user",

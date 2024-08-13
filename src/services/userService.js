@@ -79,7 +79,7 @@ exports.userProfile = async (data) => {
     const followers_count = user_data.followers.length
     const following_count = user_data.followings.length
     result = JSON.parse(JSON.stringify(user_data))
-    console.log(result);
+    // console.log(result);
 
     result.followers_count = followers_count
     result.following_count = following_count
@@ -179,6 +179,7 @@ exports.getFollowersList = async (user_data, data) => {
     const offset = data.offset ? data.offset : 0;
     const search = data.search ? data.search : '';
     let search_query = {}
+    console.log(limit, offset);
 
     if (search) {
         const regex = new RegExp(search, 'i')
@@ -317,11 +318,11 @@ exports.unfollowUser = async (data, auth_user_data) => {
     }
 
     // const filtered_existing_foolowings = existing_followings.filter((elem) => elem != unfollow_user_id)
-    const filtered_existing_foolowings = existing_followings.filter((e) => {
+    const filtered_existing_followings = existing_followings.filter((e) => {
         return e != unfollow_user_id
     })
-
     const filtered_followers = user_data.followers.filter((elem) => elem != auth_user_id.toString())
+
 
     const [update_unfollow_user, update_auth_user] = await Promise.all([
         User.updateOne(
@@ -330,7 +331,7 @@ exports.unfollowUser = async (data, auth_user_data) => {
         ),
         User.updateOne(
             { _id: auth_user_id },
-            { $set: { followings: filtered_existing_foolowings } }
+            { $set: { followings: filtered_existing_followings } }
         )
     ])
 

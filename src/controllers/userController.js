@@ -79,8 +79,6 @@ exports.UserLogin = async (request, response) => {
 
 exports.userProfile = async (request, response) => {
     try {
-        // console.log(request.user)
-
         const required_fields = ['id']
         const validation = validationHelper.validation(required_fields, request.params)
 
